@@ -120,6 +120,7 @@
 	IBOutlet NSTextField *writeRS232ToFile;				// T
 	IBOutlet NSTextField *readRS232FromFile;			// T
 	IBOutlet NSButton *enableMidi;
+	IBOutlet NSTextField *readMidiFromFile;				// T
 	IBOutlet NSTextField *writeMidiToFile;				// T
 	__unsafe_unretained IBOutlet NSPopUpButton *midiInPort;
 	__unsafe_unretained IBOutlet NSPopUpButton *midiOutPort;
@@ -151,6 +152,7 @@
 	NSMutableString		*masterIDE ;
 	NSMutableString		*slaveIDE ;
 	NSMutableString		*keyboard ;
+	NSMutableString		*midiIn ;
 	NSMutableString		*midiOut ;
 	NSMutableString		*printit ;
 	NSMutableString		*rs232In ;
@@ -168,6 +170,7 @@
 - (IBAction)chooseIdeMasterHdImage:(id)sender;
 - (IBAction)chooseIdeSlaveHdImage:(id)sender;
 - (IBAction)chooseKeyboardMappingFile:(id)sender;
+- (IBAction)chooseMidiInputFile:(id)sender;
 - (IBAction)chooseMidiOutputFile:(id)sender;
 - (IBAction)choosePrintToFile:(id)sender;
 - (IBAction)chooseRS232InputFile:(id)sender;
@@ -191,6 +194,8 @@
 - (void)saveAllControls;
 - (void)insertFloppyImageIntoDrive:(int)drive forTextField:(NSTextField*)floppyTextField  realPath:(NSMutableString *)realPath ;
 - (BOOL)choosePathForControl:(NSTextField*)textField chooseDirectories:(BOOL)chooseDirectories defaultInitialDir:(NSString*)defaultInitialDir 
+																					mutString:(NSMutableString *)mutString what:(NSArray *)what ;
+- (BOOL)choosePathForControlSave:(NSTextField*)textField chooseDirectories:(BOOL)chooseDirectories defaultInitialDir:(NSString*)defaultInitialDir 
 																					mutString:(NSMutableString *)mutString what:(NSArray *)what ;
 - (void)initKeysDropDown:(NSPopUpButton*)dropDown;
 - (void)setJoystickControls;

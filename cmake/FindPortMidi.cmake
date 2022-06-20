@@ -22,6 +22,8 @@ find_library(PORTMIDI_LIBRARY NAMES portmidi)
 find_package_handle_standard_args(PortMidi DEFAULT_MSG
                                   PORTMIDI_LIBRARY PORTMIDI_INCLUDE_DIR)
 
+set(PortMidi_FOUND FALSE)
+
 # Check if it's really a portmidi installation...
 if(PortMidi_FOUND)
 	set(CMAKE_REQUIRED_LIBRARIES ${PORTMIDI_LIBRARY})

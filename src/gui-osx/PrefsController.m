@@ -347,6 +347,12 @@ BOOL flag1, flag2;
             mutString:keyboard  what:@[@"txt",@"map"]];
 }
 /*----------------------------------------------------------------------*/
+- (IBAction)chooseMidiInputFile:(id)sender
+{
+	[self choosePathForControl: readMidiFromFile chooseDirectories:NO defaultInitialDir:[self initial:midiIn]			// midi output 
+            mutString:midiIn  what:@[@"mid"]];
+}
+/*----------------------------------------------------------------------*/
 - (IBAction)chooseMidiOutputFile:(id)sender
 {
 	[self choosePathForControl: writeMidiToFile chooseDirectories:NO defaultInitialDir:[self initial:midiOut]			// midi output 
@@ -992,6 +998,7 @@ BOOL flag1, flag2;
 	EXPORT_TEXTFIELD(printit, ConfigureParams.Printer.szPrintToFileName);
 	EXPORT_TEXTFIELD(rs232In, ConfigureParams.RS232.szInFileName);
 	EXPORT_TEXTFIELD(TOS, ConfigureParams.Rom.szTosImageFileName);
+	EXPORT_TEXTFIELD(midiIn, ConfigureParams.Midi.sMidiOutFileName);
 	EXPORT_TEXTFIELD(midiOut, ConfigureParams.Midi.sMidiOutFileName);
 	EXPORT_TEXTFIELD(rs232Out, ConfigureParams.RS232.szOutFileName);
 
