@@ -39,7 +39,7 @@
 
 #define EXPORT_TEXTFIELD(mutablStrng, target) [mutablStrng getCString:target maxLength:sizeof((target))-1 encoding:NSASCIIStringEncoding]
 #define EXPORT_NTEXTFIELD(nstextfield, target) target = [nstextfield intValue]
-#define EXPORT_SWITCH(nsbutton, target) target = ([(nsbutton) state] == NSOnState)
+#define EXPORT_SWITCH(nsbutton, target) target = ([(nsbutton) state] == NSControlStateValueOn)
 #define EXPORT_RADIO(nsmatrix, target) target = [[(nsmatrix) selectedCell] tag]
 #define EXPORT_DROPDOWN(nspopupbutton, target) target = [[(nspopupbutton) selectedItem] tag]
 #define EXPORT_SLIDER(nsslider, target) target = [(nsslider) intValue]
@@ -47,7 +47,7 @@
 // la structure vers l'affichage (setAllControls)
 #define IMPORT_TEXTFIELD(nstextfield, mutablStrng, source) [mutablStrng setString:[NSString stringWithCString:(source) encoding:NSASCIIStringEncoding]] ; [nstextfield setStringValue:[NSApp pathUser:mutablStrng]]
 #define IMPORT_NTEXTFIELD(nstextfield, source) [(nstextfield) setIntValue:(source)]
-#define IMPORT_SWITCH(nsbutton, source) [(nsbutton) setState:((source))? NSOnState : NSOffState]
+#define IMPORT_SWITCH(nsbutton, source) [(nsbutton) setState:((source))? NSControlStateValueOn : NSControlStateValueOff]
 #define IMPORT_RADIO(nsmatrix, source) [(nsmatrix) selectCellWithTag:(source)]
 #define IMPORT_DROPDOWN(nspopupbutton, source) [(nspopupbutton) selectItemAtIndex:[(nspopupbutton) indexOfItemWithTag:(source)]]
 #define IMPORT_SLIDER(nsslider,source) [(nsslider) setIntValue:source]
@@ -259,7 +259,6 @@ char szPath[FILENAME_MAX];
 
 	return NO;																// Selection aborted
 }
-
 
 /*----------------------------------------------------------------------*/
 /*  Helper method to insert a floppy image								*/
@@ -571,11 +570,9 @@ BOOL flag1, flag2;
 	[midiOutPort addItemWithTitle:[NSString stringWithCString:szinPortName encoding:NSASCIIStringEncoding]];
 	
 #ifdef HAVE_PORTMIDI
-	int i = 0;
 	const char* portName = NULL;
 	while ((portName = Midi_Host_GetPortName(portName, +1, true)))
 		[midiInPort addItemWithTitle:[NSString stringWithCString:portName encoding:NSASCIIStringEncoding]];
-	i = 0;
 	portName = NULL;
 	while ((portName = Midi_Host_GetPortName(portName, +1, false)))
 		[midiOutPort addItemWithTitle:[NSString stringWithCString:portName encoding:NSASCIIStringEncoding]];
@@ -719,17 +716,17 @@ BOOL flag1, flag2;
 	IMPORT_TEXTFIELD(floppyImageA, floppyA, ConfigureParams.DiskImage.szDiskFileName[0]);
 	IMPORT_SWITCH(enableDriveA, ConfigureParams.DiskImage.EnableDriveA);
 	if(ConfigureParams.DiskImage.DriveA_NumberOfHeads==1)
-		[driveA_NumberOfHeads setState:NSOffState];
+		[driveA_NumberOfHeads setState:NSControlStateValueOff];
 	else
-		[driveA_NumberOfHeads setState:NSOnState];
+		[driveA_NumberOfHeads setState:NSControlStateValueOn];
 
 	//Disk B
 	IMPORT_TEXTFIELD(floppyImageB, floppyB, ConfigureParams.DiskImage.szDiskFileName[1]);		// le B
 	IMPORT_SWITCH(enableDriveB,ConfigureParams.DiskImage.EnableDriveB);
 	if(ConfigureParams.DiskImage.DriveB_NumberOfHeads==1)
-		[driveB_NumberOfHeads setState:NSOffState];
+		[driveB_NumberOfHeads setState:NSControlStateValueOff];
 	else
-		[driveB_NumberOfHeads setState:NSOnState];
+		[driveB_NumberOfHeads setState:NSControlStateValueOn];
 
 	// Import all the preferences into their controls
 	IMPORT_TEXTFIELD(cartridgeImage, cartridge, ConfigureParams.Rom.szCartridgeImageFileName);
@@ -747,9 +744,9 @@ BOOL flag1, flag2;
 	//1.9.0 New Option
 	IMPORT_SWITCH(bFilenameConversion, ConfigureParams.HardDisk.bFilenameConversion);
 	if (ConfigureParams.HardDisk.nGemdosDrive == DRIVE_SKIP)
-		[nGemdosDrive setState:NSOnState];
+		[nGemdosDrive setState:NSControlStateValueOn];
 	else
-		[nGemdosDrive setState:NSOffState];
+		[nGemdosDrive setState:NSControlStateValueOff];
 
 	IMPORT_SWITCH(nGemdosDrive, ConfigureParams.HardDisk.nGemdosDrive);
 	IMPORT_SWITCH(captureOnChange, ConfigureParams.Screen.bCrop);
@@ -998,14 +995,14 @@ BOOL flag1, flag2;
 	//Disk A
 
 	EXPORT_SWITCH(enableDriveA, ConfigureParams.DiskImage.EnableDriveA);
-	if([driveA_NumberOfHeads state]==NSOnState)
+	if([driveA_NumberOfHeads state]==NSControlStateValueOn)
 		ConfigureParams.DiskImage.DriveA_NumberOfHeads=2;
 	else
 		ConfigureParams.DiskImage.DriveA_NumberOfHeads=1;
 
 	//Disk B
 	EXPORT_SWITCH(enableDriveB,ConfigureParams.DiskImage.EnableDriveB);
-	if([driveB_NumberOfHeads state]==NSOnState)
+	if([driveB_NumberOfHeads state]==NSControlStateValueOn)
 		ConfigureParams.DiskImage.DriveB_NumberOfHeads=2;
 	else
 		ConfigureParams.DiskImage.DriveB_NumberOfHeads=1;
@@ -1016,7 +1013,7 @@ BOOL flag1, flag2;
 	// 1.9.0 new options in Disk
 	EXPORT_SWITCH(bFilenameConversion, ConfigureParams.HardDisk.bFilenameConversion);
 
-	if ([nGemdosDrive state]==NSOnState)
+	if ([nGemdosDrive state]==NSControlStateValueOn)
 		ConfigureParams.HardDisk.nGemdosDrive = DRIVE_SKIP;
 	else
 		ConfigureParams.HardDisk.nGemdosDrive = DRIVE_C;

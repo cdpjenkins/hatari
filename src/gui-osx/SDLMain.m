@@ -403,13 +403,13 @@ char szPath[FILENAME_MAX] ;											// for general use
 	{
 		GuiOsx_Pause(true);
 		emulationPaused=YES;
-		[pauseMenuItem setState:NSOnState];
+		[pauseMenuItem setState:NSControlStateValueOn];
 	}
 	else
 	{
 		GuiOsx_Resume();
 		emulationPaused=NO;
-		[pauseMenuItem setState:NSOffState];
+		[pauseMenuItem setState:NSControlStateValueOff];
 	}
 }
 /*----------------------------------------------------------------------*/
