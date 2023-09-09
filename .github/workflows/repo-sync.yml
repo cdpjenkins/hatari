@@ -7,9 +7,7 @@ on:
 
 jobs:
   repo-sync:
-    env:
-      MIRROR_PAT_SECRET: ${{ secrets.MIRROR_PAT }}
-    if: ${{ MIRROR_PAT_SECRET != '' }}
+    if: ${{ YES_I_WANT_TO_SYNC != '' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
