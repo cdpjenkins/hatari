@@ -7,7 +7,7 @@ on:
 
 jobs:
   repo-sync:
-    if: ${{ YES_I_WANT_TO_SYNC != '' }}
+    if: ${{ vars.YES_I_WANT_TO_SYNC != '' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
